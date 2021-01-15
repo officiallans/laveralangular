@@ -1,0 +1,85 @@
+@import url(https://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic&subset=latin,cyrillic);
+
+.navbar.navbar-default {
+  border-radius: 0;
+}
+
+.loader {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  height: 130px;
+  width: 130px;
+  z-index: 2000;
+  border-radius: 50%;
+  box-sizing: border-box;
+  line-height: 50px;
+  font-size: 50px;
+  padding: 40px;
+  background: #A23B72;
+  color: white;
+  transform: translate(-50%, -50%);
+  border: 2px solid #F18F01;
+}
+
+body {
+  font-family: 'PT Sans';
+}
+
+.navbar-default .navbar-brand {
+  background-color: #F18F01;
+  &, &:hover, &:focus {
+    color: #EAEAEA;
+  }
+}
+
+.navbar-default {
+  background-color: #A23B72;
+  & .navbar-collapse, & .navbar-toggle {
+    border-color: #F18F01;
+  }
+  & .navbar-toggle .icon-bar {
+    background: #EAEAEA;
+  }
+  & .navbar-nav {
+    & > li > a {
+      &, &:hover, &:focus {
+        color: #EAEAEA;
+      }
+      &:hover, &:focus {
+        background-color: rgba(0, 0, 0, .3);
+      }
+    }
+    & > .open {
+      & > a {
+        &, &:hover, &:focus {
+          background-color: #424651;
+          color: white;
+        }
+      }
+      & .dropdown-menu {
+        background-color: white;
+        border-radius: 0;
+      }
+    }
+  }
+}
+
+input[uib-datepicker-popup] {
+  &::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+  &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  &::-webkit-clear-button {
+    -webkit-appearance: none;
+    display: none;
+  }
+}
+
+.well {
+  border-radius: 0;
+  border-color: #F18F01;
+}

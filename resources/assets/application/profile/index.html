@@ -1,0 +1,59 @@
+<div class="col-sm-4 col-sm-offset-4">
+    <div class="well clearfix" ng-show="loaded">
+        <script type="text/ng-template" id="alert">
+            <div class="alert" role="alert">
+                <button ng-show="closeable" type="button" class="close" ng-click="close()">
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <div ng-transclude></div>
+            </div>
+        </script>
+        <uib-alert template-url="alert" ng-class="'alert-'+alert.type" ng-repeat="alert in alerts"
+                   type="{{alert.type}}" close="alerts.splice($index, 1)">
+            {{alert.msg}}
+        </uib-alert>
+        <form novalidate name="profileForm" ng-submit="submit($event)">
+            <div class="form-group">
+                <label>Аватар</label>
+                <p class="text-center" ng-show="avatar_url">
+                    <img ng-show="avatar_url" src="{{avatar_url}}" alt="" class="img-responsive img-thumbnail">
+                </p>
+                <p class="input-group col-md-12 col-xs-12 col-lg-12">
+                    <input type="file" file-model="avatar" name="avatar" class="form-control">
+                </p>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': profileForm.name.$invalid }">
+                <label>Ім’я</label>
+                <p class="input-group col-md-12 col-xs-12 col-lg-12">
+                    <input type="text" ng-model="name" name="name" class="form-control" required>
+                </p>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <p class="input-group col-md-12 col-xs-12 col-lg-12">
+                    <input type="email" ng-model="email" name="email" disabled class="form-control">
+                </p>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" name="options[not_report_reminder]" ng-model="options['not_report_reminder']">Не надсилати нагадування про звіти</label>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error': profileForm.password.$invalid }">
+                <label>Новий пароль</label>
+                <p class="input-group col-md-12 col-xs-12 col-lg-12">
+                    <input type="password" ng-model="password" name="password" class="form-control" aria-describedby="newPasswordHelp">
+                </p>
+            </div>
+            <div id="newPasswordHelp" class="help-block">Якщо залишити це поле пустим, то пароль не буде змінено.</div>
+            <div class="form-group" ng-show="password" ng-class="{ 'has-error': profileForm.password_confirmation.$invalid }">
+                <label>Підтвердьте пароль</label>
+                <p class="input-group col-md-12 col-xs-12 col-lg-12">
+                    <input type="password" ng-model="password_confirmation" name="password_confirmation" class="form-control" ng-required="password" ng-pattern="'^'+password+'$'">
+                </p>
+            </div>
+        
+            <button type="submit" class="btn btn-primary pull-right" ng-disabled="submitting">Оновити</button>
+        </form>
+    </div>
+</div>

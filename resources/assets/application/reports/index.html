@@ -1,0 +1,66 @@
+<div class="report-index">
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="form-inline filter-search">
+                <form ng-submit="pageInit()">
+                    <input type="search" class="form-control" ng-model="search">
+                    <button type="submit" class="form-control" ng-disabled="loading"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="form-inline filter-type filter-search">
+                <label>
+                    Тип:
+                    <select name="type" class="form-control" ng-model="type" ng-disabled="loading">
+                        <option value="all">Усі</option>
+                        <option ng-repeat="(key, value) in types" value="{{key}}">{{value}}</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+    </div>
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Назва</th>
+            <th class="hidden-xs" width="150">Тип</th>
+            <th width="100">Дата</th>
+        </tr>
+        </thead>
+        <tbody ng-if="!loading">
+        <tr ng-if="!reports.length">
+            <td rowspan="3">
+                Нічого не знайдено
+            </td>
+        </tr>
+        <tr class="task" ng-repeat="report in reports">
+            <td>
+                <a href="#" ng-click="showReport($event, report)">{{report.name}}</a>
+                <span class="pull-right hidden-xs">
+                    <a href="#" ng-click="updateReport($event, report)"><span class="fa fa-pencil"></span></a>
+                    <a href="#" ng-click="deleteReport($event, report)"><span class="fa fa-trash"></span></a>
+                </span>
+            </td>
+            <td class="hidden-xs">{{report.fine.type}}</td>
+            <td>{{report.fine.date}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="filter-page form-inline" ng-show="pagination.currentPage !== null && pagination.numPages > 1">
+        <label>Сторінка:
+            <input class="form-control" min="1" max="{{pagination.numPages}}" type="number"
+                   ng-disabled="loading"
+                   ng-model="pagination.currentPage" ng-change="pageInit()"></label>
+    </div>
+    <div class="text-center">
+        <uib-pagination total-items="pagination.totalItems" num-pages="pagination.numPages"
+                        previous-text="Назад" next-text="Вперед"
+                        ng-show="pagination.currentPage !== null && pagination.numPages > 1" ng-disabled="loading"
+                        items-per-page="pagination.perPage" ng-model="pagination.currentPage"
+                        ng-change="pageInit()"></uib-pagination>
+    </div>
+</div>

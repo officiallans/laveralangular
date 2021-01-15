@@ -1,0 +1,59 @@
+<div class="col-sm-4 col-sm-offset-4 auth-form">
+    <div class="well">
+        <script type="text/ng-template" id="alert.html">
+            <div class="alert" role="alert">
+                <button ng-show="closeable" type="button" class="close" ng-click="close()">
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <div ng-transclude></div>
+            </div>
+        </script>
+        <div class="btn-group btn-group-justified">
+            <label class="btn btn-default" ng-model="selectedForm" uib-btn-radio="'login'">Авторизація</label>
+            <label class="btn btn-default" ng-model="selectedForm" uib-btn-radio="'signup'">Реєстрація</label>
+        </div>
+        <div class="form-wrapper" ng-show="selectedForm === 'login'">
+            <uib-alert template-url="alert.html" ng-class="'alert-'+alert.type"
+                       ng-repeat="alert in login.alerts"
+                       dismiss-on-timeout="3500"
+                       type="{{alert.type}}" close="login.alerts.splice($index, 1)">
+                {{alert.msg}}
+            </uib-alert>
+            <form novalidate name="loginForm" ng-submit="login.submit()">
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Email" ng-model="login.email" name="email"
+                           required>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Пароль" ng-model="login.password" name="password"
+                           required>
+                </div>
+                <button class="btn pull-left btn-info" type="button" ng-click="reset($event)">Забули пароль?</button>
+                <button class="btn pull-right btn-primary" ng-disabled="submitting">Увійти</button>
+            </form>
+        </div>
+        <div class="form-wrapper" ng-show="selectedForm === 'signup'">
+            <uib-alert template-url="alert.html" ng-class="'alert-'+alert.type"
+                       ng-repeat="alert in register.alerts"
+                       dismiss-on-timeout="3500"
+                       type="{{alert.type}}" close="register.alerts.splice($index, 1)">
+                {{alert.msg}}
+            </uib-alert>
+            <form name="registerForm" novalidate ng-submit="register.submit()">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Повне Ім'я" name="full_name" ng-model="register.name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Email" name="email" ng-model="register.email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Пароль" name="password"
+                           ng-model="register.password" required>
+                </div>
+                <button class="btn pull-right btn-primary" ng-disabled="submitting">Зареєструватися</button>
+
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="well" ng-show="isLoaded">
+    <ul ng-show="groups.length">
+        <li>
+            <a ui-sref="site.calendar.group({id: 'all'})">Усі події</a>
+        </li>
+        <li ng-repeat="group in groups">
+            <a ui-sref="site.calendar.group({id: group.id})">{{group.name}}</a>
+            <a ng-show="type != 'participant'" ui-sref="site.user-group.edit({id: group.id})"> <span class="fa fa-pencil"></span></a>
+        </li>
+    </ul>
+    <div ng-show="!groups.length">
+        Ви не входите в жодну групу
+    </div>
+</div>

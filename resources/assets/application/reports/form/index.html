@@ -1,0 +1,105 @@
+<div class="report-form">
+    <script type="text/ng-template" id="alert">
+        <div class="alert" role="alert">
+            <button ng-show="closeable" type="button" class="close" ng-click="close()">
+                <span aria-hidden="true">×</span>
+                <span class="sr-only">Close</span>
+            </button>
+            <div ng-transclude></div>
+        </div>
+    </script>
+    <uib-alert template-url="alert" ng-class="'alert-'+alert.type" ng-repeat="alert in alerts"
+               type="{{alert.type}}" close="alerts.splice($index, 1)" dismiss-on-timeout="3000">
+        {{alert.msg}}
+    </uib-alert>
+    <div class="alert alert-info visible-xs visible-sm" role="alert">
+        <strong>Для користувачів мобільних пристроїв!</strong>
+        Зміну типу звіту проводити окремо через popup форму.
+    </div>
+
+    <form ng-submit="submit($event)" name="reportsForm" novalidate>
+        <div class="row">
+            <div ng-repeat="(type, typeName) in types" class="col-md-3" value="{{key}}">
+                <h2 class="text-center">{{typeName}}</h2>
+                <div dnd-list="reports[type]" dnd-drop="drop(item)" ng-class="{empty: !reports[type].length}">
+                    <ng-form name="reportForm" ng-repeat="report in reports[type]">
+                        <div class="task"
+                             dnd-draggable="report"
+                             dnd-moved="reports[type].splice($index, 1)"
+                             dnd-effect-allowed="move"
+                             ng-class="{'unchained': report.id && !report.chained}">
+                            <div class="panel panel-{{typeClass[type]}}" dnd-nodrag>
+                                <div class="panel-heading" dnd-handle>
+                                    <div class="handle" title=""></div>
+                                </div>
+                                <div class="panel-body">
+                                    <div ng-class="{ 'has-error': reportForm.name.$invalid && reportForm.name.$touched }">
+                                        <input type="text" class="form-control" name="name" ng-model="report.name"
+                                               placeholder="Назва"
+                                               ng-blur="onBlur($event)"
+                                               ng-focus="onFocus($event);"
+                                               required>
+                                    </div>
+                                </div>
+                                <div class="panel-footer">
+                                    <p class="input-group"
+                                       ng-class="{ 'has-error': reportForm.date.$invalid && reportForm.date.$touched }">
+                                        <input uib-datepicker-popup type="date" name="date"
+                                               ng-model="report.date"
+                                               datepicker-options="dateOptions"
+                                               ng-blur="onBlur($event)"
+                                               ng-focus="onFocus($event)"
+                                               is-open="report.calendarOpened" show-button-bar="false"
+                                               class="form-control">
+                                        <span class="input-group-btn"><button type="button" class="btn btn-default"
+                                                                              ng-click="report.calendarOpened = true"><i
+                                                class="fa fa-calendar"></i></button></span>
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-6 col-xs-6">
+                                            <p><a href="#" class="btn btn-default btn-block"
+                                                  ng-class="{disabled: report.type === 'closed'}"
+                                                  ng-click="$event.preventDefault(); report._comment_open = !report._comment_open"
+                                                  title="Коментарій"><span class="fa fa-comment"></span></a></p>
+                                        </div>
+                                        <div class="col-md-6 col-xs-6">
+                                            <p><a href="#" class="btn btn-default btn-block" ng-if="!report.id"
+                                                  ng-click="delete_report($event, report, type)"
+                                                  title="Прибрати"><span class="fa fa-close"></span></a>
+                                                <a href="#" class="btn btn-default btn-block" ng-if="report.id"
+                                                   ng-click="unchain_report($event, report)">
+                            <span class="fa"
+                                  ng-class="{'fa-chain': report.chained, 'fa-chain-broken': !report.chained}"></span>
+                                                </a></p>
+                                        </div>
+                                    </div>
+
+                                    <p ng-show="report.comment || report.type === 'closed' || report._comment_open"
+                                       ng-class="{ 'has-error': reportForm.comment.$invalid && reportForm.comment.$touched }"><textarea
+                                            ng-blur="onBlur($event)"
+                                            ng-focus="onFocus($event)"
+                                            class="form-control" name="comment"
+                                            placeholder="Коментарій"
+                                            ng-model="report.comment"
+                                            ng-required="report.type === 'closed'"></textarea></p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </ng-form>
+                </div>
+                <p>
+                    <a href="#" class="btn btn-default btn-block" ng-click="add_report($event, type)"><span
+                            class="glyphicon glyphicon-plus"></span></a>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    <button type="submit" class="btn btn-success btn-block" ng-disabled="submitting">Зберегти</button>
+                </p>
+            </div>
+        </div>
+    </form>
+</div>

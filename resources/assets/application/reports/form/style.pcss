@@ -1,0 +1,29 @@
+.report-form {
+  & .task {
+    &.unchained {
+      opacity: 0.6;
+    }
+  }
+  & [dnd-list] {
+    margin-top: 20px;
+    &.empty, & .dndPlaceholder {
+      display: block;
+      background-color: #eee;
+      border-radius: 5px;
+      min-height: 66px;
+      margin-bottom: 20px;
+    }
+    & .dndPlaceholder {
+      border: 2px dashed black;
+    }
+    &, & .task {
+      position: relative;
+    }
+  }
+  & .handle {
+    border-width: 1px 0;
+    padding: 2px;
+    border-style: dashed;
+    border-color: black;
+  }
+}

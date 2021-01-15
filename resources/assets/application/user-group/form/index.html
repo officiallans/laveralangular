@@ -1,0 +1,26 @@
+<div class="well clearfix>">
+    <h3 class="text-center">{{ edit ? 'Редагувати групу' : 'Створити групу' }}</h3>
+    <form name="createUserGroup" class="group-create-from" ng-submit="save()">
+        <div class="center-block">
+            <label>Назва групи</label>
+            <input type="text" name="title" class="form-control" ng-model="title">
+        </div>
+        <div class="center-block">
+            <label>Учасники</label>
+            <input type="text" class="form-control" ng-model="userFilter" placeholder="Пошук">
+            <ul class="users">
+                <li ng-repeat="user in users | filter:userFilter">
+                    <label ng-class="{select: user.checked}">
+                        <input type="checkbox" ng-value="user.id" name="user.checked" ng-model="user.checked"
+                               ng-required="!usersCheckedLength()">
+                        <span class="fa fa-check-square-o" ng-show="user.checked"></span>
+                        <span class="fa fa-square-o" ng-show="!user.checked"></span>
+                        {{user.name}}
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-default pull-right" ng-disabled="submitting">Зберегти</button>
+    </form>
+</div>

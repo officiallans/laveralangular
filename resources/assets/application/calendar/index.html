@@ -1,0 +1,217 @@
+<div class="calendar-index" ng-class="{'calendar-group': groupId}">
+    <div class="row">
+        <div class="col-md-12 calendar-info">
+            <ul class="nav nav-pills" role="tablist">
+                <li role="presentation"><a>Відпрацювань <span
+                        class="label label-default">{{info.working_off}}</span></a>
+                </li>
+                <li role="presentation"><a>Відгулів <span
+                        class="label label-default">{{info.time_off}}</span></a></li>
+                <li role="presentation"><a>Різниця <span class="label" ng-class="{
+                                'label-warning': parseFloat(info.balance) < 0,
+                                'label-success': parseFloat(info.balance) > 0,
+                                'label-default': parseFloat(info.balance) === 0
+                              }">{{info.balance}}</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-4 text-center hidden-xs hidden-sm">
+            <div class="btn-group">
+                <button class="btn btn-primary" ng-click="newEvent()" title="Додати">
+                    <i class="fa fa-plus-circle"></i>
+                </button>
+            </div>
+        </div>
+        <div class="col-md-4 text-center hidden-xs hidden-sm">
+            <div class="btn-group">
+                <button
+                        title="Назад"
+                        class="btn btn-primary"
+                        mwl-date-modifier
+                        date="calendarDate"
+                        decrement="calendarView">
+                    <i class="fa fa-arrow-circle-left"></i>
+                </button>
+                <button
+                        title="Сьогодні"
+                        class="btn btn-primary"
+                        mwl-date-modifier
+                        date="calendarDate"
+                        set-to-today>
+                    <i class="fa fa-circle"></i>
+                </button>
+                <button
+                        title="Вперед"
+                        class="btn btn-primary"
+                        mwl-date-modifier
+                        date="calendarDate"
+                        increment="calendarView">
+                    <i class="fa fa-arrow-circle-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <br class="visible-xs">
+        <div class="col-md-4 col-sm-12 text-center">
+            <div class="btn-group visible-xs-inline-block visible-sm-inline-block">
+                <button class="btn btn-primary" ng-click="newEvent()">
+                    <i class="fa fa-plus-circle"></i>
+                </button>
+            </div>
+            <div class="btn-group visible-xs-inline-block visible-sm-inline-block">
+                <button
+                        title="Назад"
+                        class="btn btn-primary"
+                        mwl-date-modifier
+                        date="calendarDate"
+                        decrement="calendarView">
+                    <i class="fa fa-arrow-circle-left"></i>
+                </button>
+                <button
+                        title="Сьогодні"
+                        class="btn btn-primary"
+                        mwl-date-modifier
+                        date="calendarDate"
+                        set-to-today>
+                    <i class="fa fa-circle"></i>
+                </button>
+                <button
+                        title="Вперед"
+                        class="btn btn-primary"
+                        mwl-date-modifier
+                        date="calendarDate"
+                        increment="calendarView">
+                    <i class="fa fa-arrow-circle-right"></i>
+                </button>
+            </div>
+
+            <br class="visible-xs"><br class="visible-xs">
+            <label class="btn btn-primary" ng-class="{'active': calendarView === 'year'}"
+                   ng-click="calendarView = (calendarView === 'month') ? 'year' : 'month';" title="Рік"><i
+                    class="fa fa-calendar"></i></label>
+            <div class="btn-group" ng-show="group && groups.length">
+                <button type="button" class="btn btn-primary" ng-show="group">{{group}}</button>
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" ng-show="groups.length">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a ui-sref="site.calendar.group({id: 'all'})">Усі події</a>
+                    </li>
+                    <li ng-repeat="group in groups">
+                        <a ui-sref="site.calendar.group({id: group.id})">{{group.name}}</a>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li><a ui-sref="site.calendar.index">Мої події</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <br>
+
+    <h2 class="text-center">{{ calendarTitle }}</h2>
+    <mwl-calendar
+            view="calendarView"
+            view-date="calendarDate"
+            view-title="calendarTitle"
+            events="events"
+            view-title="calendarTitle"
+            edit-event-html="'<span class=\'fa fa-pencil\'></span>'"
+            delete-event-html="'<span class=\'fa fa-trash-o\'></span>'"
+            on-view-change-click="viewChangeClicked(calendarNextView)"
+            on-event-click="eventEdited(calendarEvent);"
+            on-edit-event-click="eventEdited(calendarEvent)"
+            on-delete-event-click="eventDeleted(calendarEvent)"
+            cell-is-open="false">
+    </mwl-calendar>
+
+
+    <div class="row group-info" ng-if="groupId && groupId !== 'all'">
+        <div ng-if="author" class="col-md-12">
+            <div class="well">
+                Менеджер групи: <br>
+                <user-link user="author" />
+            </div>
+        </div>
+        <div class="col-md-12" ng-if="users.length">
+            <div class="well">
+                Учасники:
+                <table class="table-bordered table-condensed table-responsive table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th>Ім'я</th>
+                        <th>Різниця</th>
+                        <th>Відпрацювань</th>
+                        <th>Відгулів</th>
+                        <th>Лікарняних</th>
+                        <th>Відпусток</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="user in users">
+                        <td>
+                            <user-link user="user" />
+                        </td>
+                        <td style="text-align: center">
+                            <div class="label" ng-class="{
+                                'label-warning': parseFloat(user.workflow_info.balance) < 0,
+                                'label-success': parseFloat(user.workflow_info.balance) >= 0
+                              }">{{user.workflow_info.balance}}
+                            </div>
+                        </td>
+                        <td>
+                            {{user.workflow_info.working_off}}
+                        </td>
+                        <td>
+                            {{user.workflow_info.time_off}}
+                        </td>
+                        <td>
+                            {{user.workflow_info.sick_leave}}
+                        </td>
+                        <td>
+                            {{user.workflow_info.vacation}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row workflow-filter" ng-show="groupType !== 'my' && events.length && typeCode && typeCode >= minTypeCode">
+        <div class="col-md-6 col-md-offset-3">
+            <label class="text-center">Фільтр користувачів</label>
+            <div class="checkbox" ng-repeat="user in users">
+                <label>
+                    <input type="checkbox" ng-model="user.checked"> {{user.name}}
+                </label>
+            </div>
+
+            <p class="text-center">
+                <button class="btn btn-default" ng-click="filterCheckAll(true)">Вибрати усіх</button>
+                <button class="btn btn-default" ng-click="filterCheckAll(false)">Виключити усіх</button>
+            </p>
+        </div>
+    </div>
+    <div class="row workflow-info" ng-show="groupType !== 'my' && events.length && typeCode && typeCode >= minTypeCode">
+        <div class="col-md-3" ng-repeat="(type, typeTranslate) in types">
+            <h2 class="text-center">{{typeTranslate}}</h2>
+            <table class="table">
+                <tr ng-repeat="event in events | filter: {type: type} | orderBy:'startsAt':reverse | userChecked:users">
+                    <td>
+                        {{event.author.name}}
+                    </td>
+
+                    <td>{{event.dates}}</td>
+                </tr>
+                <tr ng-if="! (events | filter: {type: type} | userChecked:users).length">
+                    <td colspan="2">Нічого не знайдено</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style ng-bind="styles"></style>

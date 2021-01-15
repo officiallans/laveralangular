@@ -1,0 +1,16 @@
+<div class="report-view">
+    <div class="modal-header">
+        <h5>{{name}} <a class="pull-right" href="#" ng-click="close($event)"><span class="fa fa-close"></span></a></h5>
+    </div>
+    <div class="modal-body">
+        <div class="pull-right">{{fine.date}}</div>
+        {{fine.type}}
+        <div class="clearfix">
+            {{comment}}
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-info" ng-click="updateReport($event)"><span class="fa fa-pencil"></span> Редагувати</button>
+        <button type="button" class="btn btn-warning" ng-click="deleteReport($event)"><span class="fa fa-trash"></span> Видалити</button>
+    </div>
+</div>

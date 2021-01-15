@@ -1,0 +1,88 @@
+<div class="well">
+    <ul ng-show="isAuthorized" class="nav">
+        <li><a ui-sref="site.calendar.index">Календар</a></li>
+        <li class="dropdown" ng-show="type && type !== 'participant'">
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+               aria-expanded="false">Групи <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a ui-sref="site.user-group.index">Мої групи</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a ui-sref="site.user-group.create">Створити групу</a></li>
+            </ul>
+        </li>
+        <li ng-show="type && type === 'participant'"><a ui-sref="site.user-group.index">Мої групи</a></li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+               aria-expanded="false">Звіти <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a ui-sref="site.reports.index">Мої звіти</a></li>
+                <li><a ui-sref="site.reports.user({id: 'my'})">Історія звітів</a></li>
+                <li><a ui-sref="site.reports.form">Створити звіт</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+               aria-expanded="false">Корисні посилання <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="https://drive.google.com/file/d/1IMedKs_eHIBIFmqi94savf7OAm0a4lm_/view"
+                       target="_blank">
+                        ASD company rules
+                    </a>
+                </li>
+                <li>
+                    <a href="http://mrmime.asd-team.com/" target="_blank">
+                        Mr.Mime
+                    </a>
+                </li>
+                <li>
+                    <a href="https://drive.google.com/open?id=1o0KmAj7qBcDUGSGcRqC8bO4Rox2D9Cga"
+                       target="_blank">
+                        Структура Оцінювання
+                    </a>
+                </li>
+                <li>
+                    <a href="https://drive.google.com/open?id=19DC4IatjqIczCa_MUhDnwXFGjPhsAJgy"
+                       target="_blank">
+                        Grow Report Example
+                    </a>
+                </li>
+                <li>
+                    <a href="https://docs.google.com/spreadsheets/d/1fzOZUwC1x1sJ6TbCRD6-q0vfIsr-2g65Sj12ZGy9p2k/"
+                       target="_blank">
+                        Conferences
+                    </a>
+                </li>
+                <li>
+                    <a href="https://drive.google.com/open?id=1_dq2NQfDd77VDjmZAwfg5oQS4Gw-O3edAJgt5kD9-P0" target="_blank">
+                        Brainbench Tests Schedule
+                    </a>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li>
+                    <a href="https://docs.google.com/document/d/1ymuibrwKtEpZO3LvGy0Kw6x0NhqqQSUOltM8W9xKlz0/"
+                       target="_blank">
+                        Java code conventions
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/veniamins/Style-guide-PHP" target="_blank">
+                        Style-guide-PHP
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/komarnitskyi/Style-Guide---JS" target="_blank">
+                        ASD JS Style Guide
+                    </a>
+                </li>
+                <li>
+                    <a href="https://docs.google.com/document/d/1ryX2MgfmfSdMZsQPtugqEpsVhdtjD1c83YopW-WIrdQ/edit" target="_blank">
+                        JS assessment skills
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li><a ui-sref="site.profile.index">Профіль</a></li>
+        <li><a ui-sref="auth.logout">Вихід</a></li>
+    </ul>
+</div>

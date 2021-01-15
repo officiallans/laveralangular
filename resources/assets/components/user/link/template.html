@@ -1,0 +1,13 @@
+<div class="user-link">
+    <div class="avatar" style="background-image: url({{user.avatar}})"></div>
+
+    <div class="btn-group" uib-dropdown>
+        <button type="button" class="btn btn-default" uib-dropdown-toggle>
+            {{user.name}} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+            <li role="menuitem"><a target="_blank" href="mailto:{{user.email}}">EMail</a></li>
+            <li role="menuitem" ng-show="typeCode >= 50"><a ui-sref="site.reports.user({id: user.id})">Звіт</a></li>
+        </ul>
+    </div>
+</div>

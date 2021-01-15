@@ -1,0 +1,49 @@
+{
+  "private": true,
+  "dependencies": {
+    "angular": "^1.8.2",
+    "angular-animate": "^1.5.0",
+    "angular-bootstrap-calendar": "^0.18.0",
+    "angular-drag-and-drop-lists": "^1.4.0",
+    "angular-hmr": "^0.1.1",
+    "angular-i18n": "^1.5.0",
+    "angular-loading-bar": "^0.8.0",
+    "angular-ui-bootstrap": "^0.14.3",
+    "angular-ui-router": "^0.3.2",
+    "babel-core": "^6.11.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "bluebird": "^3.4.0",
+    "bootstrap": "^3.4.1",
+    "css-loader": "^5.0.1",
+    "dotenv": "^2.0.0",
+    "exports-loader": "^0.6.2",
+    "extract-text-webpack-plugin": "^2.0.0-beta.4",
+    "file-loader": "^0.8.5",
+    "font-awesome": "^4.5.0",
+    "html-loader": "^0.4.0",
+    "image-webpack-loader": "^7.0.1",
+    "imports-loader": "^0.6.5",
+    "jquery": "^3.5.1",
+    "less": "^2.5.3",
+    "less-loader": "^2.2.2",
+    "lodash": "^4.17.20",
+    "moment": "^2.11.0",
+    "oclazyload": "^1.0.9",
+    "postcss-cssnext": "^2.9.0",
+    "postcss-loader": "^1.2.2",
+    "postcss-use": "^2.0.2",
+    "satellizer": "^0.13.1",
+    "style-loader": "^0.13.0",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.14.0"
+  },
+  "devDependencies": {
+    "loader-utils": "^0.2.16",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack-dev-server --hot --inline --watch"
+  }
+}

@@ -1,0 +1,48 @@
+<form novalidate name="reportFormUpdate" ng-submit="update($event)">
+    <div class="report-update">
+        <div class="modal-header">
+            <div class="row">
+                <div class="col-md-12"
+                     ng-class="{ 'has-error': reportFormUpdate.name.$invalid && reportFormUpdate.name.$touched }">
+                    <input type="text" class="form-control" name="name" placeholder="Ім'я" ng-model="report.name" required>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p ng-class="{ 'has-error': reportFormUpdate.type.$invalid && reportFormUpdate.type.$touched }">
+                        <select name="type" class="form-control" ng-model="report.type" required>
+                            <option ng-repeat="(key, value) in types" value="{{key}}">{{value}}</option>
+                        </select>
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p class="input-group"
+                       ng-class="{ 'has-error': reportFormUpdate.date.$invalid && reportFormUpdate.date.$touched }">
+                        <input uib-datepicker-popup type="date" name="date"
+                               ng-model="report.date"
+                               is-open="calendar.opened" show-button-bar="false"
+                               datepicker-options="dateOptions"
+                               required class="form-control">
+            <span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="showCalendar()"><i
+                            class="fa fa-calendar"></i></button></span>
+                    </p>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12"
+                             ng-class="{ 'has-error': reportFormUpdate.comment.$invalid && reportFormUpdate.comment.$touched }">
+                        <textarea class="form-control" name="comment" placeholder="Коментар"
+                                  ng-model="report.comment" ng-required="report.type === 'closed'"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-info" ng-disabled="submitting">Зберегти</button>
+            <button type="button" class="btn btn-warning" ng-click="cancel()">Скасувати</button>
+        </div>
+    </div>
+</form>

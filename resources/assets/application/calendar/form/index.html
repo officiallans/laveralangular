@@ -1,0 +1,67 @@
+<form ng-submit="submit()" name="eventForm" class="event-form" novalidate>
+    <div class="modal-header">
+        <select ng-model="type" class="form-control" required ng-disabled="typeDisabled">
+            <option disabled style="display: none" value="">Оберіть тип</option>
+            <option ng-repeat="(key, value) in types" value="{{key}}">{{value}}</option>
+        </select>
+    </div>
+    <div class="modal-body">
+        <script type="text/ng-template" id="alert">
+            <div class="alert" role="alert">
+                <button ng-show="closeable" type="button" class="close" ng-click="close()">
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <div ng-transclude></div>
+            </div>
+        </script>
+        <uib-alert template-url="alert" ng-class="'alert-'+alert.type" ng-repeat="alert in alerts"
+                   type="{{alert.type}}" close="alerts.splice($index, 1)">
+            {{alert.msg}}
+        </uib-alert>
+        <div class="center-block" ng-show="calendarStart.show">
+            <label>{{calendarStart.label}}</label>
+            <p class="input-group">
+                <input type="date" ng-model="start_at" uib-datepicker-popup name="start_at"
+                       is-open="calendarStart.opened" ng-required="calendarStart.required"
+                       datepicker-options="dateOptions" show-button-bar="false"
+                       class="form-control">
+                <span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="calendarStart.open()"><i
+                                class="fa fa-calendar"></i></button></span>
+            </p>
+        </div>
+        <div class="center-block" ng-show="calendarEnd.show">
+            <label>{{calendarEnd.label}}</label>
+            <small>(Залишити пустим для тривалості в 1 день)</small>
+            <p class="input-group">
+                <input type="date" ng-model="end_at" uib-datepicker-popup
+                       is-open="calendarEnd.opened" name="end_at" ng-min="calendarEnd.min" ng-required="calendarEnd.required"
+                       datepicker-options="dateOptions" show-button-bar="false"
+                       class="form-control">
+            <span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="calendarEnd.open()"><i
+                            class="fa fa-calendar"></i></button></span>
+            </p>
+        </div>
+        <div class="center-block duration" ng-show="!calendarEnd.show">
+            <label>Тривалість</label>
+            <p>
+                <uib-timepicker ng-model="duration" ng-change="changed()" hour-step="1" minute-step="10" max="durationSetting.max" show-meridian="false"></uib-timepicker>
+            </p>
+        </div>
+        <div class="center-block">
+            <label>Коментар</label>
+            <p>
+                <textarea name="comment" ng-model="comment" class="form-control"></textarea>
+            </p>
+        </div>
+        <br>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" type="button" ng-show="needConfirm" ng-click="confirm()" ng-disabled="submitting">Підтвердити</button>
+        <button class="btn btn-primary" type="submit" ng-disabled="submitting">Зберегти</button>
+        <button class="btn btn-danger" type="button" ng-disabled="submitting" ng-click="remove()" ng-if="id">Видалити</button>
+
+        <button class="btn btn-default pull-left" type="button" ng-click="cancel()"><span class="fa fa-close"></span></button>
+    </div>
+</form>
